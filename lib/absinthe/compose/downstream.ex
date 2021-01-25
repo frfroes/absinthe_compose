@@ -34,6 +34,8 @@ defmodule Absinthe.Compose.Downstream do
 
   def translate_object(nil, _list, _schema), do: nil
 
+  def translate_object([], _field, _schema), do: []
+
   def translate_object(downstream, field, schema) do
     Enum.reduce(field.selections, %{}, fn field, map ->
       internal_name = field.schema_node.identifier
@@ -58,6 +60,10 @@ defmodule Absinthe.Compose.Downstream do
   end
 
   def translate_scalar(downstream, %Absinthe.Type.Scalar{identifier: :boolean}) do
+    downstream
+  end
+
+  def translate_scalar(downstream, %Absinthe.Type.Scalar{identifier: :json}) do
     downstream
   end
 
