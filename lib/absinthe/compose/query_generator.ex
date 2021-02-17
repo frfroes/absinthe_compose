@@ -114,6 +114,9 @@ defmodule Absinthe.Compose.QueryGenerator do
   defp translate_scalar(internal_value, %Absinthe.Type.Scalar{identifier: :integer}),
     do: internal_value
 
+  defp translate_scalar(internal_value, %Absinthe.Type.Scalar{identifier: :boolean}),
+    do: internal_value
+
   defp translate_scalar(internal_value, %Absinthe.Type.Enum{} = enum) do
     enum.values
     |> Map.fetch!(internal_value)
