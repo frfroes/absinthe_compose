@@ -105,6 +105,14 @@ defmodule Absinthe.Compose.QueryGenerator do
     translate_scalar(internal_value, sub_type)
   end
 
+  defp translate_scalar(internal_value, %Absinthe.Type.List{of_type: sub_type}) do
+    translate_scalar(internal_value, sub_type)
+  end
+
+  defp translate_scalar(internal_value, %Absinthe.Type.InputObject{identifier: _sub_type}) do
+    internal_value
+  end
+
   defp translate_scalar(internal_value, %Absinthe.Type.Scalar{identifier: :id}),
     do: internal_value
 
